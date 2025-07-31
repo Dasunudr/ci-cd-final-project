@@ -1,0 +1,22 @@
+name: CI/CD Pipeline
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: 
+      image: python:3.11
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install dependencies and run tests
+        run: |
+          pip install -r requirements.txt
+          pytest
+      - name: Run unit tests with nose
+        run: |
+          pip install nose
+          nosetests
