@@ -7,16 +7,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: 
-      image: python:3.11
+    container:
+      image: python:3.9
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install dependencies and run tests
+      - name: Install dependencies
         run: |
+          pip install --upgrade pip
           pip install -r requirements.txt
-          pytest
-      - name: Run unit tests with nose
-        run: |
           pip install nose
-          nosetests
+      - name: Run pytest
+        run: pytest
+      - name: Run unit tests with nose
+        run: nosetests
